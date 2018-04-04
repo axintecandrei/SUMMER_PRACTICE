@@ -3,7 +3,7 @@
 .dep/
 .project
 .settings/
-
+Debug/*
 #files being edited
 *~
 
