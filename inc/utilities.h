@@ -2,7 +2,7 @@
  * utilities.h
  *
  *  Created on: 20 mar. 2018
- *      Author: uidp7521
+ *      Author: axint
  */
 
 #ifndef UTILITIES_H_
@@ -22,6 +22,6 @@ typedef struct byteAsbits_s
 }byteAsbits_t;
 
 
-void _delay(uint32_t moment);
-void ByteToBits (uint8_t in_byte, byteAsbits_t* out_bits );
+void UTIL_delay(uint32_t moment);
+void UTIL_ByteToBits (uint8_t in_byte, byteAsbits_t* out_bits );
 #endif /* UTILITIES_H_ */
