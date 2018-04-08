@@ -63,6 +63,7 @@ void LCD_ByteToPort(uint8_t byte_to_send );
 void LCD_ToogleEnable();
 void LCD_SendCommand(uint8_t command);
 void LCD_SendData(uint8_t data);
-void LCD_SendString(int8_t* p_str);
+void LCD_SendString(char* p_str);
 void LCD_SetCursorTo(uint8_t row, uint8_t col);
+void LCD_SendInt(int32_t in_nr);
 #endif /* LCD_H_ */

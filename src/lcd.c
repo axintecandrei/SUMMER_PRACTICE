@@ -51,7 +51,15 @@ void LCD_INIT()
    LCD_SendCommand(LCD_RETURN_HOME);
 }
 
-void LCD_SendString(int8_t* p_str)
+void LCD_SendInt(int32_t in_nr)
+{
+   char buffer_string[16];
+
+   sprintf(buffer_string,"%ld",in_nr);
+   LCD_SendString(buffer_string);
+}
+
+void LCD_SendString(char* p_str)
 {
    while(*p_str)
    {
