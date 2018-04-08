@@ -12,6 +12,7 @@ void MAIN_INIT(void)
 {
 	RCC_INIT();
 	GPIO_INIT();
+	LCD_INIT();
 }
 
 static void RCC_INIT(void)

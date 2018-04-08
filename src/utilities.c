@@ -7,7 +7,7 @@
 #include "utilities.h"
 
 /*some sort of delay*/
-void _delay(uint32_t moment)
+void UTIL_delay(uint32_t moment)
 {
 	uint32_t outer, inner;
 
@@ -21,7 +21,7 @@ void _delay(uint32_t moment)
 
 }
 
-void ByteToBits (uint8_t in_byte, byteAsbits_t* out_bits )
+void UTIL_ByteToBits (uint8_t in_byte, byteAsbits_t* out_bits )
 {
 	out_bits->bit_0 = (in_byte&  1)>>0;
 	out_bits->bit_1 = (in_byte&  2)>>1;

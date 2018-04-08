@@ -45,30 +45,7 @@ void GPIO_INIT()
 	/* local init struct for ports
 	 * can be used for any ports
 	 * if properly managed*/
-
 	GPIO_InitTypeDef GPIOx_Init;
-
-
-
-	GPIOx_Init.Pin   = LCD_D0 | LCD_D1 | LCD_D2 | LCD_D3 | LCD_RS | LCD_EN;
-	GPIOx_Init.Mode  = GPIO_MODE_OUTPUT_PP;
-	GPIOx_Init.Pull  = GPIO_NOPULL;
-	GPIOx_Init.Speed = GPIO_SPEED_MEDIUM;
-
-	/*Enable bus clock for port C*/
-	__GPIOC_CLK_ENABLE();
-    /*HAL func that will do the proper initialization*/
-	HAL_GPIO_Init(LCD_NIBBLE_1_PORT, &GPIOx_Init);
-
-	GPIOx_Init.Pin   = LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7 ;
-	GPIOx_Init.Mode  = GPIO_MODE_OUTPUT_PP;
-	GPIOx_Init.Pull  = GPIO_NOPULL;
-	GPIOx_Init.Speed = GPIO_SPEED_MEDIUM;
-
-	/*Enable bus clock for ports*/
-	__GPIOA_CLK_ENABLE();
-    /*HAL func that will do the proper initialization*/
-	HAL_GPIO_Init(LCD_NIBBLE_2_PORT, &GPIOx_Init);
 
 	GPIOx_Init.Pin   = BUTT_1 | BUTT_2 ;
 	GPIOx_Init.Mode  = GPIO_MODE_INPUT;
@@ -87,7 +64,7 @@ void GPIO_INIT()
 	}
 }
 
-uint8_t DebounceButton(GPIO_TypeDef* port, uint16_t button, debounce_state_t* port_debounce_str)
+uint8_t GPIO_DebounceButton(GPIO_TypeDef* port, uint16_t button, debounce_state_t* port_debounce_str)
 {
    /*check if the button is pressed*/
    if((pin_state_t)HAL_GPIO_ReadPin(port,button) == pressed)
