@@ -37,8 +37,8 @@ static void RCC_INIT(void)
 	RCC_OscInit.PLL.PLLState = RCC_PLL_ON;
 	RCC_OscInit.PLL.PLLSource = RCC_PLLSOURCE_HSE;
 	RCC_OscInit.PLL.PLLM = 8;
-    RCC_OscInit.PLL.PLLN = 336;
-    RCC_OscInit.PLL.PLLP = RCC_PLLP_DIV4;
+   RCC_OscInit.PLL.PLLN = 336;
+   RCC_OscInit.PLL.PLLP = RCC_PLLP_DIV4;
 	RCC_OscInit.PLL.PLLQ = 7;
 
 

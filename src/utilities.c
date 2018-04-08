@@ -21,4 +21,14 @@ void _delay(uint32_t moment)
 
 }
 
-void ByteToBits (uint8_t in_byte );
+void ByteToBits (uint8_t in_byte, byteAsbits_t* out_bits )
+{
+	out_bits->bit_0 = (in_byte&  1)>>0;
+	out_bits->bit_1 = (in_byte&  2)>>1;
+	out_bits->bit_2 = (in_byte&  4)>>2;
+	out_bits->bit_3 = (in_byte&  8)>>3;
+	out_bits->bit_4 = (in_byte& 16)>>4;
+	out_bits->bit_5 = (in_byte& 32)>>5;
+	out_bits->bit_6 = (in_byte& 64)>>6;
+	out_bits->bit_7 = (in_byte&128)>>7;
+}

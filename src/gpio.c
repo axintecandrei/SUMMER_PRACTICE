@@ -40,20 +40,24 @@
 
 void GPIO_INIT()
 {
+	uint8_t button_nr;
+
 	/* local init struct for ports
 	 * can be used for any ports
 	 * if properly managed*/
 
 	GPIO_InitTypeDef GPIOx_Init;
 
+
+
 	GPIOx_Init.Pin   = LCD_D0 | LCD_D1 | LCD_D2 | LCD_D3 | LCD_RS | LCD_EN;
 	GPIOx_Init.Mode  = GPIO_MODE_OUTPUT_PP;
 	GPIOx_Init.Pull  = GPIO_NOPULL;
 	GPIOx_Init.Speed = GPIO_SPEED_MEDIUM;
 
-	/*Enable bus clock for ports*/
+	/*Enable bus clock for port C*/
 	__GPIOC_CLK_ENABLE();
-    /*HAL func that will do the proper initialisation*/
+    /*HAL func that will do the proper initialization*/
 	HAL_GPIO_Init(LCD_NIBBLE_1_PORT, &GPIOx_Init);
 
 	GPIOx_Init.Pin   = LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7 ;
@@ -63,7 +67,7 @@ void GPIO_INIT()
 
 	/*Enable bus clock for ports*/
 	__GPIOA_CLK_ENABLE();
-    /*HAL func that will do the proper initialisation*/
+    /*HAL func that will do the proper initialization*/
 	HAL_GPIO_Init(LCD_NIBBLE_2_PORT, &GPIOx_Init);
 
 	GPIOx_Init.Pin   = BUTT_1 | BUTT_2 ;
@@ -71,8 +75,60 @@ void GPIO_INIT()
 	GPIOx_Init.Pull  = GPIO_PULLDOWN;
 	GPIOx_Init.Speed = GPIO_SPEED_MEDIUM;
 
-    /*HAL func that will do the proper initialisation*/
+    /*HAL func that will do the proper initialization*/
 	HAL_GPIO_Init(BUTT_PORT, &GPIOx_Init);
+
+	/*init the debounce structure */
+	for(button_nr = 0; button_nr < 2; button_nr++)
+	{
+		DEBOUNCE_BUTTx[button_nr].button_state                  = released;
+		DEBOUNCE_BUTTx[button_nr].ButtonPressedConfidanceLevel  = 0;
+		DEBOUNCE_BUTTx[button_nr].ButtonReleasedConfidanceLevel = 0;
+	}
+}
+
+uint8_t DebounceButton(GPIO_TypeDef* port, uint16_t button, debounce_state_t* port_debounce_str)
+{
+   /*check if the button is pressed*/
+   if((pin_state_t)HAL_GPIO_ReadPin(port,button) == pressed)
+   {
+
+      if(port_debounce_str->button_state == released)
+      {
+         /*once the confidence level is fullfield*/
+	      if(port_debounce_str->ButtonPressedConfidanceLevel > CONFIDENCE_THR)
+	      {
+	         /*update the buttons state with pressed*/
+	         port_debounce_str->button_state = pressed;
+	      }
+	      else
+	      {
+	         port_debounce_str->ButtonPressedConfidanceLevel++;
+	         port_debounce_str->ButtonReleasedConfidanceLevel = 0;
+	      }
+	   }
+	}
+	else
+	{
+      if(port_debounce_str->button_state == pressed)
+      {
+         /*once the confidence level is fullfield*/
+         if(port_debounce_str->ButtonReleasedConfidanceLevel > CONFIDENCE_THR)
+         {
+            /*update the buttons state with pressed*/
+            port_debounce_str->button_state = released;
+         }
+         else
+         {
+
+            port_debounce_str->ButtonReleasedConfidanceLevel++;
+            port_debounce_str->ButtonPressedConfidanceLevel  = 0;
+         }
+      }
+	}
+
+
+	return port_debounce_str->button_state;
 }
 
 
