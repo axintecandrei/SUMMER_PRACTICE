@@ -13,7 +13,7 @@ void UTIL_delay(uint32_t moment)
 
 	for(outer = 0; outer<moment; outer++)
 	{
-		for(inner = 0; inner<84 ; inner++)
+		for(inner = 0; inner<1515 ; inner++)
 		{
 
 		}

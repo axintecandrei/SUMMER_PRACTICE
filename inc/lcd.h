@@ -66,4 +66,5 @@ void LCD_SendData(uint8_t data);
 void LCD_SendString(char* p_str);
 void LCD_SetCursorTo(uint8_t row, uint8_t col);
 void LCD_SendInt(int32_t in_nr);
+void LCD_SendFloat(float in_nr);
 #endif /* LCD_H_ */

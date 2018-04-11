@@ -12,6 +12,7 @@ void MAIN_INIT(void)
 {
 	RCC_INIT();
 	GPIO_INIT();
+	TIMER2_INIT();
 	LCD_INIT();
 }
 
@@ -19,7 +20,6 @@ static void RCC_INIT(void)
 {
 	/*RCC HAL functions will return a status depending
 	  if the configuration was ok or not*/
-	//HAL_StatusTypeDef RCC_Status;
 
 	/*Declare to be used structures of RCC*/
 	RCC_OscInitTypeDef RCC_OscInit;		/*Oscilator type, osc state ON/OFF
@@ -31,8 +31,6 @@ static void RCC_INIT(void)
 	__PWR_CLK_ENABLE();
 	__HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
 
-
-
 	RCC_OscInit.OscillatorType = RCC_OSCILLATORTYPE_HSE;
 	RCC_OscInit.HSEState = RCC_HSE_ON;
 	RCC_OscInit.PLL.PLLState = RCC_PLL_ON;
@@ -41,7 +39,6 @@ static void RCC_INIT(void)
    RCC_OscInit.PLL.PLLN = 336;
    RCC_OscInit.PLL.PLLP = RCC_PLLP_DIV4;
 	RCC_OscInit.PLL.PLLQ = 7;
-
 
 	RCC_ClockInit.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
 							  |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;

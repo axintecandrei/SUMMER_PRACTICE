@@ -35,20 +35,27 @@ void LCD_INIT()
 
    HAL_GPIO_WritePin(LCD_CONTROL_PORT, LCD_RS, GPIO_PIN_RESET);
 
-   UTIL_delay(3000);
+   UTIL_delay(15);
 
    LCD_SendCommand(LCD_DISPLAY_ON | LCD_CURSOR_OFF | LCD_BLINKING_OFF);
    LCD_SendCommand(LCD_CLEAR_DISPLAY);
    LCD_SendCommand(LCD_RETURN_HOME);
    LCD_SendCommand(LCD_8_BIT_MODE | LCD_2_LINES | LCD_FONT_5x10);
-
    LCD_SetCursorTo(0,0);
    LCD_SendString("LCD Init Done");
    LCD_SetCursorTo(1,2);
    LCD_SendString(" HAVE FUN");
-   UTIL_delay(96000);
+   UTIL_delay(2500);
    LCD_SendCommand(LCD_CLEAR_DISPLAY);
    LCD_SendCommand(LCD_RETURN_HOME);
+}
+
+void LCD_SendFloat(float in_nr)
+{
+   char buffer_string[16];
+
+   sprintf(buffer_string,"%.5f",in_nr);
+   LCD_SendString(buffer_string);
 }
 
 void LCD_SendInt(int32_t in_nr)
@@ -96,7 +103,7 @@ void LCD_SendCommand(uint8_t command)
 void LCD_ToogleEnable()
 {
    HAL_GPIO_WritePin(LCD_CONTROL_PORT, LCD_EN, GPIO_PIN_SET);
-   UTIL_delay(50);
+   UTIL_delay(3);
    HAL_GPIO_WritePin(LCD_CONTROL_PORT, LCD_EN, GPIO_PIN_RESET);
 }
 
